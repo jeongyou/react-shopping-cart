@@ -11775,18 +11775,17 @@ const reset = css`
 const BackArrowButton = ({ onClick, ...props }) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./assets/icons/BackArrow.svg" }) });
 };
-var define_import_meta_env_default$1 = { BASE_URL: "/react-shopping-cart/", MODE: "production", DEV: false, PROD: true, SSR: false };
 async function baseAPI({
   method,
   path,
   body
 }) {
-  const baseURL = define_import_meta_env_default$1.VITE_BASE_URL;
+  const baseURL = "http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com";
   const result = await fetch(`${baseURL}${path}`, {
     method,
     headers: {
       Authorization: `Basic ${btoa(
-        `${define_import_meta_env_default$1.VITE_USER_ID}:${define_import_meta_env_default$1.VITE_PASSWORD}`
+        `${"jeongyou"}:${"password"}`
       )}`,
       "Content-Type": "application/json"
     },
@@ -12471,7 +12470,7 @@ const CheckoutButton = newStyled.button`
   cursor: ${({ isDisabled }) => isDisabled ? "not-allowed" : "pointer"};
   border-radius: 0px;
 `;
-var define_import_meta_env_default = { BASE_URL: "/react-shopping-cart/", MODE: "production", DEV: false, PROD: true, SSR: false };
+var define_import_meta_env_default = { VITE_USER_ID: "jeongyou", VITE_PASSWORD: "password", VITE_BASE_URL: "http://techcourse-lv2-alb-974870821.ap-northeast-2.elb.amazonaws.com", BASE_URL: "/react-shopping-cart/", MODE: "production", DEV: false, PROD: true, SSR: false };
 function getBrowserBaseUrl() {
   if (typeof window === "undefined")
     return "/";
