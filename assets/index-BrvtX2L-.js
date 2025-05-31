@@ -11772,8 +11772,9 @@ const reset = css`
       sans-serif;
   }
 `;
+const BackArrowImage = "data:image/svg+xml,%3csvg%20width='32'%20height='32'%20viewBox='0%200%2032%2032'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M5.58325%2016L4.41195%2015.063L3.66231%2016L4.41195%2016.9371L5.58325%2016ZM26.4166%2017.5C27.245%2017.5%2027.9166%2016.8285%2027.9166%2016C27.9166%2015.1716%2027.245%2014.5%2026.4166%2014.5V17.5ZM13.9166%205.58336L12.7453%204.64632L4.41195%2015.063L5.58325%2016L6.75456%2016.9371L15.0879%206.52041L13.9166%205.58336ZM5.58325%2016L4.41195%2016.9371L12.7453%2027.3537L13.9166%2026.4167L15.0879%2025.4797L6.75456%2015.063L5.58325%2016ZM5.58325%2016V17.5H26.4166V16V14.5H5.58325V16Z'%20fill='white'/%3e%3c/svg%3e";
 const BackArrowButton = ({ onClick, ...props }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./assets/icons/BackArrow.svg" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: BackArrowImage }) });
 };
 async function baseAPI({
   method,
@@ -11791,8 +11792,9 @@ async function baseAPI({
     },
     body: body ? JSON.stringify(body) : null
   });
-  if (method === "GET" && !result.ok) {
-    throw new Error("GET 요청에 실패하였습니다.");
+  if (!result.ok) {
+    const errorMessage = await result.text();
+    throw new Error(`API 요청 실패: ${result.status} - ${errorMessage}`);
   }
   if (method === "GET")
     return result.json();
@@ -11834,8 +11836,7 @@ async function getShoppingCartData() {
   const results = data == null ? void 0 : data.content.map((cart) => convertResponseToCart(cart));
   return results ?? [];
 }
-async function patchCartItem(cartId, quantity) {
-  const cartList = await getShoppingCartData();
+async function patchCartItem(cartId, quantity, cartList) {
   const cart = cartList.find((item) => item.id === cartId);
   if (!cart) {
     throw new Error("장바구니에 해당 아이템이 없습니다.");
@@ -12155,7 +12156,7 @@ function CartCheckList() {
       const cart = cartListData.find((cart2) => cart2.id === cartId);
       if (!cart)
         throw new Error("장바구니에 해당 아이템이 없습니다.");
-      await patchCartItem(cartId, cart.quantity + 1);
+      await patchCartItem(cartId, cart.quantity + 1, cartListData);
       await cartRefetch();
     } catch (e2) {
       showToast("장바구니에 추가하는 데 실패했습니다.");
@@ -12168,7 +12169,7 @@ function CartCheckList() {
       const cart = cartListData.find((cart2) => cart2.id === cartId);
       if (!cart)
         throw new Error("장바구니에 해당 아이템이 없습니다.");
-      await patchCartItem(cartId, cart.quantity - 1);
+      await patchCartItem(cartId, cart.quantity - 1, cartListData);
       await cartRefetch();
     } catch (e2) {
       showToast("장바구니에서 뺴는 데 실패했습니다.");
@@ -12191,7 +12192,7 @@ function CartCheckList() {
         {
           isChecked: isSelectAll,
           onToggle: () => handleSelectAll(),
-          role: "cart-item-all-checkbox",
+          "aria-label": "전체 선택 체크박스",
           "aria-checked": isSelectAll
         }
       ),
@@ -12206,7 +12207,7 @@ function CartCheckList() {
         {
           isChecked: selectionMap[cart.id],
           onToggle: () => handleToggleSelection(cart.id),
-          role: "cart-item-checkbox",
+          "aria-label": "상품 선택 체크박스",
           "aria-checked": selectionMap[cart.id]
         }
       ),
@@ -12220,7 +12221,7 @@ function CartCheckList() {
             altText: `${cart.product.name} 상품 이미지`
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(ProductInfo, { "aria-label": "상품 정보", role: "cart-product-info", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(ProductInfo, { "aria-label": "상품 정보", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(ProductName, { children: cart.product.name }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(ProductPrice, { children: formatPrice(cart.product.price) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -12340,10 +12341,10 @@ const Title = newStyled.h1`
 const CartCountInfoText = newStyled.p`
   font-size: 14px;
 `;
-const LabelPrice = ({ label, price, ariaLabel }) => {
+const LabelPrice = ({ label, price }) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(TotalSection, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(TotalLabel, { children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(TotalAmount, { "aria-label": ariaLabel, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(TotalAmount, { "aria-label": label, children: [
       price.toLocaleString(),
       "원"
     ] })
@@ -12382,7 +12383,6 @@ const LabelPriceContainer = () => {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         LabelPrice,
         {
-          ariaLabel: "shipping-fee",
           label: "배송비",
           price: shippingFee
         }
@@ -12456,7 +12456,7 @@ const ShoppingCartPage = () => {
         isDisabled,
         disabled: isDisabled,
         onClick: handleCheckout,
-        role: "order-button",
+        "aria-label": "주문 확인",
         children: "주문 확인"
       }
     )
