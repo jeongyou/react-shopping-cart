@@ -11773,7 +11773,7 @@ const reset = css`
   }
 `;
 const BackArrowButton = ({ onClick, ...props }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/assets/icons/BackArrow.svg" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: `${"/react-shopping-cart/"}/assets/icons/BackArrow.svg` }) });
 };
 async function baseAPI({
   method,
@@ -12045,7 +12045,12 @@ function Counter({
         disabled: !canBeZero && count <= 1,
         "aria-label": showTrash ? "삭제" : "수량 감소",
         autoFocus,
-        children: showTrash ? /* @__PURE__ */ jsxRuntimeExports.jsx(TrashIcon, { src: "/assets/icons/Trash.svg" }) : "−"
+        children: showTrash ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+          TrashIcon,
+          {
+            src: `${"/react-shopping-cart/"}/assets/icons/Trash.svg`
+          }
+        ) : "−"
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(QuantityDisplay, { "aria-label": "수량", children: count }),
@@ -12198,7 +12203,7 @@ function CartCheckList() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "전체 선택" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ItemList, { children: isCartEmpty ? /* @__PURE__ */ jsxRuntimeExports.jsxs(EmptyCartBox, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyCartImage, { src: "/assets/icons/DeleteCart.svg" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyCartImage, { src: `${"/react-shopping-cart/"}/assets/icons/DeleteCart.svg` }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyCartText, { children: "장바구니에 담긴 상품이 없습니다." })
     ] }) : cartListData == null ? void 0 : cartListData.map((cart) => /* @__PURE__ */ jsxRuntimeExports.jsxs(ItemWithCheckboxContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -12374,18 +12379,18 @@ const LabelPriceContainer = () => {
   const totalPrice = orderPrice + shippingFee;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoBox, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(InfoIcon, { src: "/assets/icons/Info.svg", alt: "info 아이콘" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        InfoIcon,
+        {
+          src: `${"/react-shopping-cart/"}/assets/icons/Info.svg`,
+          alt: "info 아이콘"
+        }
+      ),
       /* @__PURE__ */ jsxRuntimeExports.jsx(InfoMessage, { children: "총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(PriceWrapper, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(LabelPrice, { label: "주문 금액", price: orderPrice }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        LabelPrice,
-        {
-          label: "배송비",
-          price: shippingFee
-        }
-      )
+      /* @__PURE__ */ jsxRuntimeExports.jsx(LabelPrice, { label: "배송비", price: shippingFee })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(LabelPrice, { label: "총 결제 금액", price: totalPrice })
   ] });
