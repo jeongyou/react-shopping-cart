@@ -11772,9 +11772,8 @@ const reset = css`
       sans-serif;
   }
 `;
-const BackArrowImage = "data:image/svg+xml,%3csvg%20width='32'%20height='32'%20viewBox='0%200%2032%2032'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M5.58325%2016L4.41195%2015.063L3.66231%2016L4.41195%2016.9371L5.58325%2016ZM26.4166%2017.5C27.245%2017.5%2027.9166%2016.8285%2027.9166%2016C27.9166%2015.1716%2027.245%2014.5%2026.4166%2014.5V17.5ZM13.9166%205.58336L12.7453%204.64632L4.41195%2015.063L5.58325%2016L6.75456%2016.9371L15.0879%206.52041L13.9166%205.58336ZM5.58325%2016L4.41195%2016.9371L12.7453%2027.3537L13.9166%2026.4167L15.0879%2025.4797L6.75456%2015.063L5.58325%2016ZM5.58325%2016V17.5H26.4166V16V14.5H5.58325V16Z'%20fill='white'/%3e%3c/svg%3e";
 const BackArrowButton = ({ onClick, ...props }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: BackArrowImage }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick, ...props, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/assets/icons/BackArrow.svg" }) });
 };
 async function baseAPI({
   method,
@@ -12046,7 +12045,7 @@ function Counter({
         disabled: !canBeZero && count <= 1,
         "aria-label": showTrash ? "삭제" : "수량 감소",
         autoFocus,
-        children: showTrash ? /* @__PURE__ */ jsxRuntimeExports.jsx(TrashIcon, { src: "./assets/icons/Trash.svg" }) : "−"
+        children: showTrash ? /* @__PURE__ */ jsxRuntimeExports.jsx(TrashIcon, { src: "/assets/icons/Trash.svg" }) : "−"
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(QuantityDisplay, { "aria-label": "수량", children: count }),
@@ -12199,7 +12198,7 @@ function CartCheckList() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "전체 선택" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ItemList, { children: isCartEmpty ? /* @__PURE__ */ jsxRuntimeExports.jsxs(EmptyCartBox, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyCartImage, { src: "./assets/icons/DeleteCart.svg" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyCartImage, { src: "/assets/icons/DeleteCart.svg" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(EmptyCartText, { children: "장바구니에 담긴 상품이 없습니다." })
     ] }) : cartListData == null ? void 0 : cartListData.map((cart) => /* @__PURE__ */ jsxRuntimeExports.jsxs(ItemWithCheckboxContainer, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -12375,7 +12374,7 @@ const LabelPriceContainer = () => {
   const totalPrice = orderPrice + shippingFee;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Container$1, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs(InfoBox, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(InfoIcon, { src: "./assets/icons/Info.svg", alt: "info 아이콘" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(InfoIcon, { src: "/assets/icons/Info.svg", alt: "info 아이콘" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(InfoMessage, { children: "총 주문 금액이 100,000원 이상일 경우 무료 배송됩니다." })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(PriceWrapper, { children: [
