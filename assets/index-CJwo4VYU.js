@@ -11602,6 +11602,7 @@ const OrderListContext = reactExports.createContext({
   shippingFee: 0,
   totalPrice: 0
 });
+const STORAGE_KEY = "shopping_cart_selections";
 const OrderListProvider = ({
   children
 }) => {
@@ -11612,7 +11613,22 @@ const OrderListProvider = ({
     fetcher: getShoppingCartData,
     name: "cart"
   });
-  const [selectionMap, setSelectionMap] = reactExports.useState({});
+  const [selectionMap, setSelectionMap] = reactExports.useState(() => {
+    try {
+      const savedSelections = localStorage.getItem(STORAGE_KEY);
+      return savedSelections ? JSON.parse(savedSelections) : {};
+    } catch (error) {
+      console.error("로컬스토리지에서 선택 상태를 불러오는데 실패했습니다:", error);
+      return {};
+    }
+  });
+  reactExports.useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(selectionMap));
+    } catch (error) {
+      console.error("로컬스토리지에 선택 상태를 저장하는데 실패했습니다:", error);
+    }
+  }, [selectionMap]);
   const selectedItems = (cartListData ?? []).filter((item) => selectionMap[item.id]);
   const orderPrice = calculateTotalCartItemPrice(selectedItems);
   const shippingFee = calculateShippingFee(orderPrice);
@@ -11653,7 +11669,7 @@ const useOrderListContext = () => {
       }
       return nextMap;
     });
-  }, [cartListData, setSelectionMap]);
+  }, [cartListData]);
   return {
     selectionMap,
     setSelectionMap,
