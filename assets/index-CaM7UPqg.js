@@ -11698,7 +11698,7 @@ const OrderConfirmPage = () => {
         "원"
       ] })
     ] }) }),
-    /* @__PURE__ */ jsx$1(GoToShoppingCart, { $isDisabled: false, onClick: handleGoToShoppingCartClick, children: "결제하기" })
+    /* @__PURE__ */ jsx$1(GoToShoppingCart, { $isDisabled: false, onClick: handleGoToShoppingCartClick, children: "장바구니로 돌아가기" })
   ] });
 };
 const Container$8 = /* @__PURE__ */ createStyled(Flex, {
@@ -12721,7 +12721,7 @@ const CouponInfo = ({
     }
   };
   const expirationDate = coupon.expirationDate.split("-");
-  return /* @__PURE__ */ jsxs(CouponInfoWrapper, { children: [
+  return /* @__PURE__ */ jsxs(CouponInfoWrapper, { "data-testid": `coupon-${coupon.id}`, "data-disabled": disabled, children: [
     /* @__PURE__ */ jsxs(CouponInfoTitle, { children: [
       /* @__PURE__ */ jsx$1(CheckBox, { isChecked: disabled ? false : checked, onToggle: handleOnToggle, disabled }),
       /* @__PURE__ */ jsx$1(Title, { $disabled: disabled, children: coupon.description })
@@ -12806,7 +12806,7 @@ const CouponModal = ({
       return total + getDiscountByCouponId(coupon, orderPrice, selectedItems, isJejuOrRemoteArea);
     }, 0);
   }, [selectedCouponIds, availableCoupons, orderPrice, selectedItems, isJejuOrRemoteArea]);
-  return /* @__PURE__ */ jsxs(Modal, { show, onHide, position: "center", children: [
+  return /* @__PURE__ */ jsxs(Modal, { "data-testid": "coupon-modal", show, onHide, position: "center", children: [
     /* @__PURE__ */ jsx$1(Modal.Header, { closeButton: true, children: /* @__PURE__ */ jsx$1(Modal.Title, { children: "쿠폰을 선택해주세요" }) }),
     /* @__PURE__ */ jsxs(Modal.Body, { height: 400, children: [
       /* @__PURE__ */ jsx$1(InfoNotice, { iconSrc: `${"/react-shopping-cart/"}assets/icons/Info.svg`, children: "쿠폰은 최대 2개까지 사용할 수 있습니다." }),
